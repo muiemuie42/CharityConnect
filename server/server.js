@@ -1,8 +1,10 @@
 const express = require('express');
 const path =  require('path');
 const app = express();
+const cookieparser = require('cookie-parser')
 const port = 3000;
 
+const userController = require('./controllers/userController');
 
 const passport = require('../server/passport-config/passport');
   // console.log('This is our node env ', process.env.NODE_ENV);
@@ -17,14 +19,18 @@ if (process.env.NODE_ENV === "production") {
     });
   }
 
-  app.use(passport.initialize()); // initialize user session
-  app.use(passport.session()); // store user's info in a session
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieparser());
+app.use(passport.initialize()); // initialize user session
+app.use(passport.session()); // store user's info in a session
 
 
 
   app.get('/login/twitter', passport.authenticate('twitter')); // send request to twitter
-  app.get('/login', (req, res)=>{
-    console.log('loging in without oauth')
+  app.get('/login', userController.createUser, (req, res)=>{
+    console.log('loging in without oauth', res.locals.user)
+    res.sendStatus(200)
   })
   app.get('/logout', (req, res)=>{
     console.log('logout')
