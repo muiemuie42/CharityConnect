@@ -14,9 +14,11 @@ const pool = new Pool({
 
 // CREATE TABLE IF NOT EXISTS charity (
 //     _id SERIAL PRIMARY KEY, 
-//     user_id int, charity_id int, 
-//     FOREIGN KEY (user_id) REFERENCES users(_id), 
-//     FOREIGN KEY (charity_id) REFERENCES charity(_id));
+//     name varchar NOT NULL, 
+//     financialRating int, 
+//     accountabilityRating int, 
+//     category varchar, 
+//     href varchar);
 
 // CREATE TABLE IF NOT EXISTS charity_favs (
 //     _id SERIAL PRIMARY KEY, 
