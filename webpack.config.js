@@ -15,7 +15,7 @@ module.exports = {
       "/logout": "http://localhost:3000/",
       "/twitter": "http://localhost:3000/",
     },
-    port: 8080,
+    port: 8081,
     hot: true,
   },
   mode: process.env.NODE_ENV,
