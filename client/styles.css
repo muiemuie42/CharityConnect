@@ -34,3 +34,8 @@
 .navbar {
     display: flex;
 }
+
+
+.navpanel {
+    background-color: white;
+}

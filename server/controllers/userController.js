@@ -7,6 +7,7 @@ const userController = {};
 
 userController.createUser = (req, res, next) => {
     // check to see if in DB
+    console.log('req body',req.body)
     const { username, password } = req.body;
     console.log(req.body.username, req.body.password)
 
