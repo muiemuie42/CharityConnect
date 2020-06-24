@@ -19,13 +19,13 @@ const pool = new Pool({
 //     accountabilityRating int, 
 //     category varchar, 
 //     href varchar);
-
 // CREATE TABLE IF NOT EXISTS charity_favs (
-//     _id SERIAL PRIMARY KEY, 
+//     _id SERIAL, 
 //     user_id int, 
 //     charity_id int, 
 //     FOREIGN KEY (user_id) REFERENCES users(_id), 
-//     FOREIGN KEY (charity_id) REFERENCES charity(_id));
+//     FOREIGN KEY (charity_id) REFERENCES charity(_id), 
+//     PRIMARY KEY(_id, user_id, charity_id));
 
 module.exports = {
     query: (text, params, callback) => {
