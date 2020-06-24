@@ -14,7 +14,7 @@ const pool = new Pool({
 
 // CREATE TABLE IF NOT EXISTS charity (
 //     _id SERIAL PRIMARY KEY, 
-//     name varchar NOT NULL, 
+//     name varchar NOT NULL,
 //     financialRating int, 
 //     accountabilityRating int, 
 //     category varchar, 

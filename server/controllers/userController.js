@@ -35,7 +35,8 @@ userController.createUser = (req, res, next) => {
                             log: `Error is: ${err}`
                         })    
                     } else {
-                        res.locals.user = response.rows[0].username;
+                        res.locals.user = {username: response.rows[0].username, id: response.rows[0]._id};
+                        console.log(res.locals.user)
                         return next();
                     }
                 });
@@ -54,7 +55,7 @@ userController.createUser = (req, res, next) => {
                         } else {
                             //save username
                             // console.log(response.rows)
-                            res.locals.user = response.rows[0].username;
+                            res.locals.user = {username: response.rows[0].username, id: response.rows[0]._id};
                             // console.log('username: ', res.locals.username)
                             return next();
                         }
