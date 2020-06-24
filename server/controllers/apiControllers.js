@@ -5,16 +5,12 @@ const axios = require('axios');
 const apiController = {};
 
 apiController.home = async (req, res, next)=>{
-    // will have no req body
-    // will make a request from the api
-    // saving it to res.locals
-    //sending resonse onwards
-    // https://api.data.charitynavigator.org/v2/Organizations?app_id=acad48f7&app_key=1caab9869fdb918b252c8f56de6b62ce&pageSize=999&sort=RATING
     // If no requests have been made display the fetch
     console.log('bodyyyy',req.body) // Ask Tommy where we will get the data
     const url = req.body.url || 'https://api.data.charitynavigator.org/v2/Organizations?app_id=acad48f7&app_key=1caab9869fdb918b252c8f56de6b62ce&pageSize=10&sort=RATING'
     await axios.get(url)
     .then(response => {
+        // saving it to res.locals
         res.locals.response = response;
     })
     .catch(err => console.log('The error when fetching the home API is ', err));
@@ -25,9 +21,6 @@ apiController.save = (req, res, next)=>{
     // will post req.body
     console.log(req.query)
     let { name, financialrating, accountabilityrating, category, href, id} = req.query;
-    //!! make sure to tell tommy to give null for charities without category and href and 0 for charities without ratings
-    // send it to the db
-
     // uppercase strings
     name = name.toUpperCase();
     category = category.toUpperCase();
@@ -47,9 +40,6 @@ apiController.save = (req, res, next)=>{
                 message: 'Cannot add to saved'
             })
         }
-        // console.log('response object1', response)
-        // console.log('charity id: ', response.rows[0]._id);
-        // console.log(typeof response.rows[0]._id )
         // saved it to db
         const text2 = 'INSERT INTO charity_favs (user_id, charity_id) values ($1, $2)';
         const param2 = [Number(id), Number(response.rows[0]._id)];
@@ -62,7 +52,6 @@ apiController.save = (req, res, next)=>{
                     message: 'Cannot add to saved'
                 })
             } 
-            // console.log('response object2', response)
             // return to user all saved charities
             const text3 = `SELECT ch.* 
                            FROM charity_favs cf, charity ch 
@@ -76,7 +65,6 @@ apiController.save = (req, res, next)=>{
                         message: 'We\'re having an issue adding to the favs'
                     })
                 }
-                console.log('response object3', response.rows)
                 res.locals.saved = response.rows;
                 return next()
             })
