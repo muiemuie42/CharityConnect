@@ -14,7 +14,7 @@ router.get('/', apiController.home, (req, res)=>{
 // } /*filter charities */ )
 
 router.post('/save', apiController.save, (req, res)=> {
-    res.send(200)
+    res.send({saved: res.locals.saved})
 }/* save charities */ )
 
 // router.delete('/remove', apiController.remove, (req,res) =>  {

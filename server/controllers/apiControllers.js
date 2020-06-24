@@ -12,7 +12,7 @@ apiController.home = async (req, res, next)=>{
     // https://api.data.charitynavigator.org/v2/Organizations?app_id=acad48f7&app_key=1caab9869fdb918b252c8f56de6b62ce&pageSize=999&sort=RATING
     // If no requests have been made display the fetch
     console.log('bodyyyy',req.body) // Ask Tommy where we will get the data
-    const url = req.body.url || 'https://api.data.charitynavigator.org/v2/Organizations?app_id=acad48f7&app_key=1caab9869fdb918b252c8f56de6b62ce&pageSize=50&sort=RATING'
+    const url = req.body.url || 'https://api.data.charitynavigator.org/v2/Organizations?app_id=acad48f7&app_key=1caab9869fdb918b252c8f56de6b62ce&pageSize=10&sort=RATING'
     await axios.get(url)
     .then(response => {
         res.locals.response = response;
@@ -31,13 +31,14 @@ apiController.save = (req, res, next)=>{
     // uppercase strings
     name = name.toUpperCase();
     category = category.toUpperCase();
-    
+    console.log('uppercase', name, category)
     // add charity to charity table
     // check to see if charity exist if it doesnt
-    const text1 = `NSERT INTO charity 
+    const text1 = `INSERT INTO charity 
                     (name, financialrating, accountabilityrating, category, href)
-                    values ('Home', 63, 34, 'ANIMALS', 'http://api.CharityNavigator.com/')
-                    on CONFLICT (name) DO NOTHING`;
+                    values ($1, $2, $3, $4, $5)
+                    on CONFLICT (name) DO UPDATE SET name=EXCLUDED.name
+                    RETURNING _id`;
     const param1 = [name, financialrating, accountabilityrating, category, href];
     db.query(text1, param1, (err, response)=>{
         if(err){
@@ -46,43 +47,46 @@ apiController.save = (req, res, next)=>{
                 message: 'Cannot add to saved'
             })
         }
-        console.log('charity id: ', response.rows[0]._id);
-        res.locals.charid = response.rows[0]._id; 
+        // console.log('response object1', response)
+        // console.log('charity id: ', response.rows[0]._id);
+        // console.log(typeof response.rows[0]._id )
+        // saved it to db
+        const text2 = 'INSERT INTO charity_favs (user_id, charity_id) values ($1, $2)';
+        const param2 = [Number(id), Number(response.rows[0]._id)];
+        console.log('param2: ', param2)
+        db.query(text2, param2, (err, response)=>{
+            // add charity _id and user _id to join table
+            if(err){
+                next({
+                    log: {err: 'apiController_Save: cannot add charity_id and user_id to charity_favs table'},
+                    message: 'Cannot add to saved'
+                })
+            } 
+            // console.log('response object2', response)
+        })
     })
-
-    // saved it to db
-    const text2 = 'INSERT INTO charity_favs (user_id, charity_id) values ($1 $2)';
-    const param2 = [res.locals.charid, id];
-    db.query(text2, param2, (err, res)=>{
-        // add charity _id and user _id to join table
-        if(err){
-            next({
-                log: {err: 'apiController_Save: cannot add charity_id and user_id to charity_favs table'},
-                message: 'Cannot add to saved'
-            })
-        } 
-    })
-
     // return to user all saved charities
     const text3 = `SELECT ch.* 
                    FROM charity_favs cf, charity ch 
                    WHERE cf.user_id = $1 
-                   AND ch._id = cf.charity_id`
-    db.query(text3, id, (err, response) => {
+                   AND ch._id = cf.charity_id`;
+    const param3 = [id];
+    db.query(text3, param3, (err, response) => {
         if(err){
             next({
                 log: {err: 'apiController_Save: Join Table charity_favs cannot save it to the specific user_id'},
                 message: 'We\'re having an issue adding to the favs'
             })
         }
-        console.log('response object', response)
-        res.locals.saved = response.rows[0];
+        console.log('response object3', response.rows)
+        res.locals.saved = response.rows;
+        return next()
     })
     
-    return next()
+    //return next()
 
 }
-
+//advisory, category, rating, city, state
 // apiController.delete = (req, res, next)=>{
 //     console.log('delete')
 //     return next()
