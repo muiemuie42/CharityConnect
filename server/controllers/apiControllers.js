@@ -63,27 +63,26 @@ apiController.save = (req, res, next)=>{
                 })
             } 
             // console.log('response object2', response)
+            // return to user all saved charities
+            const text3 = `SELECT ch.* 
+                           FROM charity_favs cf, charity ch 
+                           WHERE cf.user_id = $1 
+                           AND ch._id = cf.charity_id`;
+            const param3 = [id];
+            db.query(text3, param3, (err, response) => {
+                if(err){
+                    next({
+                        log: {err: 'apiController_Save: Join Table charity_favs cannot save it to the specific user_id'},
+                        message: 'We\'re having an issue adding to the favs'
+                    })
+                }
+                console.log('response object3', response.rows)
+                res.locals.saved = response.rows;
+                return next()
+            })
+            
         })
     })
-    // return to user all saved charities
-    const text3 = `SELECT ch.* 
-                   FROM charity_favs cf, charity ch 
-                   WHERE cf.user_id = $1 
-                   AND ch._id = cf.charity_id`;
-    const param3 = [id];
-    db.query(text3, param3, (err, response) => {
-        if(err){
-            next({
-                log: {err: 'apiController_Save: Join Table charity_favs cannot save it to the specific user_id'},
-                message: 'We\'re having an issue adding to the favs'
-            })
-        }
-        console.log('response object3', response.rows)
-        res.locals.saved = response.rows;
-        return next()
-    })
-    
-    //return next()
 
 }
 //advisory, category, rating, city, state
