@@ -14,7 +14,9 @@ export default class App2 extends React.Component{
         return (
             <div>
                 <Router>
-                    <NavPanel />
+                    <center className='navpanel'>
+                        <NavPanel />
+                    </center>
                     <Switch>
                         <Route exact path='/'  component={Login}/>
                         {/* <Route exact path='/' component={MainPage}/> */}
