@@ -10,7 +10,10 @@ module.exports = {
   devServer: {
     publicPath: "/build/",
     proxy: {
-      "/api/": "http://localhost:3000/",
+      "/api": "http://localhost:3000/",
+      "/login": "http://localhost:3000/",
+      "/logout": "http://localhost:3000/",
+      "/twitter": "http://localhost:3000/",
     },
     port: 8081,
     hot: true,
