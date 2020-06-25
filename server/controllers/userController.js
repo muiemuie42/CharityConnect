@@ -8,7 +8,10 @@ const userController = {};
 userController.createUser = (req, res, next) => {
     // check to see if in DB
     // console.log('req body',req.body)
-    const { username, password } = req.body;
+    let username = req.user.username || req.body.username;
+    let password = req.user.id || req.body.password;
+    console.log(username, password)
+    // const { username, password } = req.body;
 
     // if one is missing?
     if (!username.length || !password.length) {
@@ -27,7 +30,7 @@ userController.createUser = (req, res, next) => {
             })
         } else {
             // if username exists
-            if(params1) {
+            if(response.rows[0]) {
                 // console.log('object: ',response.rows[0])
                 bcrypt.compare(password, response.rows[0].password, function(err, result) {
                     if(err) {
@@ -35,7 +38,9 @@ userController.createUser = (req, res, next) => {
                             log: `Error is: ${err}`
                         })    
                     } else {
-                        res.locals.user = {username: response.rows[0].username, id: response.rows[0]._id};
+                        if(result === true) {
+                            res.locals.user = {username: response.rows[0].username, id: response.rows[0]._id};
+                        }
                         // console.log(res.locals.user)
                         return next();
                     }
@@ -54,7 +59,7 @@ userController.createUser = (req, res, next) => {
                             })
                         } else {
                             //save username
-                            // console.log(response.rows)
+                            console.log(response.rows)
                             res.locals.user = {username: response.rows[0].username, id: response.rows[0]._id};
                             // console.log('username: ', res.locals.username)
                             return next();
@@ -65,6 +70,5 @@ userController.createUser = (req, res, next) => {
         }
     })
 }
-
 
 module.exports = userController;

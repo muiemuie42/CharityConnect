@@ -1,20 +1,26 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 export default function Login({ login, setLogin }){
+    const [message, setMessage] = useState('');
     const handleSubmit = (event)=>{
         event.preventDefault();
         let form = event.target;
-        axios
-        .post('/login', {username: form.elements.username.value, password: form.elements.password.value})
-        .then((response)=>{
-            console.log('response: ', response)
-            console.log(login);
-            setLogin({state: true, id: response.id, name: response.name})
-        })
-        .catch((err)=>{
-            console.log('error', err)
-        })
+        if(!form.elements.username.value || !form.elements.password.value) {
+            setMessage('Please input username/password')
+        }else{
+            axios
+            .post('/login', {username: form.elements.username.value, password: form.elements.password.value})
+            .then((response)=>{
+                console.log('hi')
+                console.log('response: ', response)
+                setLogin({state: true, id: response.id, name: response.name})
+            })
+            .catch((err)=>{
+                console.log('error :', err)
+            })
+
+        }
     }
     return (
         <div className='login'>
@@ -49,6 +55,7 @@ export default function Login({ login, setLogin }){
                         <input type="password" id="password" name="password" placeholder='password'/><br/><br/>
                         <input type="submit" value="Submit" className='submitbtn'/>
                     </form> 
+                    {message ? <div>{message}</div> : null}
                 </div>
 
             </div>

@@ -1,9 +1,9 @@
 import React from 'react';
 
-export default function SavedDisplay(){
+export default function Charity(){
     return (
         <div>
-            Saved
+            Hi
         </div>
     )
 }

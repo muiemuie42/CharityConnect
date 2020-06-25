@@ -4,7 +4,7 @@ export default function NavPanel({ login, setLogin }){
     return (
         <div className='navpanel'>
             <h2>Charity Connect</h2>
-            {/* {login.state === true ? <p> <a>Logout</a></p> : null} */}
+            {login.state === true ? <p>{login.name} <a href='/logout'>Logout</a></p> : null}
         </div>
     )
 }

@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import Charity from './Charity';
 
-export default function charitiesDisplay(){
+export default function CharitesDisplay (){
+    const [charities, setCharities] = useState({})
+
     return (
         <div>
-            Charities
+            Charity Display
         </div>
     )
+
 }

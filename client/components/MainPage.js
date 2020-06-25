@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import charitiesDisplay from './charitiesDisplay';
-import savedDisplay from './savedDisplay';
+import React from 'react';
+import CharitiesDisplay from './CharitiesDisplay';
+import SavedDisplay from './SavedDisplay';
 
 export default function MainPage(){
     return (
         <div className='main-container'> 
-            <charitiesDisplay />
-            <savedDisplay />
+            <CharitiesDisplay />
+            <SavedDisplay />
         </div>
     )
 }
