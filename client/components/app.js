@@ -2,6 +2,7 @@ import React from 'react';
 import ColumnHeader from './columnHeader';
 // import NavBar from './navBar';
 import FilterPanel from './filterPanel';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 export default class App extends React.Component
 {
@@ -60,13 +61,20 @@ export default class App extends React.Component
         })
 
         return(
-            <React.Fragment>
-                <FilterPanel />
-                <ColumnHeader />
-                <div className="queryResultsColumn">
-                {charityRows}
-                </div>
-            </React.Fragment>
+            // <React.Fragment>
+            //     <FilterPanel />
+            //     <ColumnHeader />
+            //     <div className="queryResultsColumn">
+            //     {charityRows}
+            //     </div>
+            // </React.Fragment>
+            <div>
+                <NavPanel />
+                <Switch>
+                    <Route exact path='/login'  component={Login}/>
+                    <Route exact path='/' component={MainPage}/>
+                </Switch>
+            </div>
 
         )
 
