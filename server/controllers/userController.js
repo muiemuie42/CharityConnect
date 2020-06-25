@@ -8,9 +8,19 @@ const userController = {};
 userController.createUser = (req, res, next) => {
     // check to see if in DB
     // console.log('req body',req.body)
-    let username = req.user.username || req.body.username;
-    let password = req.user.id || req.body.password;
-    console.log(username, password)
+    let username,
+        password;
+    console.log(req.user, req.body)
+    if(req.user){
+        username = req.user.username;
+        password = req.user.id;
+    }else{
+        username = req.body.username;
+        password  = req.body.password;
+    }
+    // let username = req.user.username || req.body.username;
+    // let password = req.user.id || req.body.password;
+    console.log('username, password', username, password)
     // const { username, password } = req.body;
 
     // if one is missing?
@@ -40,6 +50,9 @@ userController.createUser = (req, res, next) => {
                     } else {
                         if(result === true) {
                             res.locals.user = {username: response.rows[0].username, id: response.rows[0]._id};
+                        }
+                        if(result === false){
+                            res.locals.user = {log: 'Wrong username/password combo'}
                         }
                         // console.log(res.locals.user)
                         return next();

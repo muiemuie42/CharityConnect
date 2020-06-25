@@ -42,13 +42,12 @@ app.post('/login', userController.createUser, (req, res)=>{
 
 app.get('/logout', (req, res)=>{
   res.clearCookie('token')
-  req.session.destroy()
   res.status(200).redirect('http://localhost:8081/')
 })
 
 app.get('/twitter/callback', passport.authenticate('twitter', { failureRedirect: '/' }), userController.createUser, // get a response and direct to failure if it's a failure
   function(req, res) {
-     console.log(res.locals.user)
+    //  console.log(res.locals.user)
      res.cookie('token', `${res.locals.user.username}-${res.locals.user.id}`, { maxAge: 6000 });
      res.status(200).redirect('http://localhost:8081/')
     }

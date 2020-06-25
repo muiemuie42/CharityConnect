@@ -10,11 +10,12 @@ export default function App2(){
         //check to see if token cookie is there
         const value = `${document.cookie}`
         if(value){
-            const target = value.split(`token=`)[1].split('-')
-            setLogin({state: true, id: target[1], name: target[0]})
+            const target = value.split(`token=`)[1]
+            if(target){
+                const data = target.split('-')
+                setLogin({state: true, id: data[1], name: data[0]})
+            }
         }
-        
-
     }, [])
     return (
         <div>

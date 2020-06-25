@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function SavedDisplay(){
     return (
-        <div>
+        <div className='saved-display'>
             Saved
         </div>
     )

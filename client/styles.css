@@ -47,9 +47,11 @@ body {
     display: inline-flex;
     width: 100%;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
 }
-
+.navpanel h3 {
+    padding-right: 20px;;
+}
 .login {
     display: flex;
     justify-content: center;
@@ -66,7 +68,16 @@ body {
     justify-content: center;
     align-items: center;
     height: 95vh;
-    background-color: turquoise;
+}
+.charity-display {
+    border: 1px solid thistle;
+    width: 70vw;
+    height: 90vh;
+}
+.saved-display {
+    border: 1px solid thistle;    
+    width: 30vw;
+    height: 90vh;
 }
 div.oauth-container {
     background-color:rgb(193, 83, 43);

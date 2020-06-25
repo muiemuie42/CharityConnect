@@ -6,7 +6,7 @@ export default function CharitesDisplay (){
     const [charities, setCharities] = useState({})
 
     return (
-        <div>
+        <div className='charity-display'>
             Charity Display
         </div>
     )

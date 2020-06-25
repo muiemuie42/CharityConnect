@@ -12,14 +12,16 @@ export default function Login({ login, setLogin }){
             axios
             .post('/login', {username: form.elements.username.value, password: form.elements.password.value})
             .then((response)=>{
-                console.log('hi')
-                console.log('response: ', response)
-                setLogin({state: true, id: response.id, name: response.name})
+                // console.log('response: ', response.data)
+                if(response.data.log){
+                    setMessage(response.data.log)
+                }else{
+                    setLogin({state: true, id: response.data.id, name: response.data.username})
+                }
             })
             .catch((err)=>{
                 console.log('error :', err)
             })
-
         }
     }
     return (
