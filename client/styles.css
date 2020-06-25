@@ -21,7 +21,7 @@ body {
 
 .field {
     width: 25%;
-    background-color: yellow;
+    background-color: lightcyan;
     text-align: center;
     border: solid 1px black;
     padding: 10px;
@@ -29,7 +29,7 @@ body {
 }
 
 .headerColor{
-    background-color: lightcoral;
+    background-color: lightgray;
 }
 
 .filterContainer{
