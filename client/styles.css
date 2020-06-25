@@ -43,14 +43,48 @@ body {
 
 
 .navpanel {
-    height: 4vh;
-    background-color: lightsteelblue;
+    height: 5vh;
+    display: inline-flex;
+    width: 100%;
     align-items: center;
-    align-content: center;
     justify-content: center;
-    
 }
+
 .login {
-    height: 96vh;
-    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 95vh;
+    background: 
+        url(kissclipart-charity-icon-business-and-commerce-icon-heart-icon-6f0ecfdecdcbc4c2.png)
+        center/ 1100px 1100px
+        no-repeat
+        scroll;
 }
+.main-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 95vh;
+    background-color: turquoise;
+}
+div.oauth-container {
+    background-color:rgb(193, 83, 43);
+    border-radius: 10px;
+    width: 250px;
+    height: 250px;
+}
+.twitterButton, div.oauth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.submitbtn {
+    width: 215px;
+    height: 30px;
+    background-color: white;
+    border-radius: 15px;
+}
+

@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import charitiesDisplay from './charitiesDisplay';
+import savedDisplay from './savedDisplay';
 
 export default function MainPage(){
     return (
-        <div> Login </div>
+        <div className='main-container'> 
+            <charitiesDisplay />
+            <savedDisplay />
+        </div>
     )
 }

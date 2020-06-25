@@ -30,10 +30,12 @@ app.use('/api', charityRouter);
 
 app.get('/login/twitter', passport.authenticate('twitter')); // send request to twitter
 
-app.get('/login', userController.createUser, (req, res)=>{
-  // console.log('loging in without oauth', res.locals.user)
-  // res.sendStatus(200)
-  res.redirect('/api')
+app.post('/login', userController.createUser, (req, res)=>{
+  // if logged in redirect
+  console.log(res.locals.user)
+  if(res.locals.user){
+    res.status(200).json(res.locals.user)
+  }
 })
 
 app.get('/logout', (req, res)=>{

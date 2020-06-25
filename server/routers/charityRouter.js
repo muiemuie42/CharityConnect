@@ -6,7 +6,7 @@ const apiController = require('../controllers/apiControllers')
 
 router.get('/', apiController.home, (req, res)=>{
     console.log('response obj: ', res.locals.response)
-    res.send(200)
+    res.send(200).json(res.locals.response).redirect('http://localhost:8081/api')
 } /*get the charities */ )
 
 // router.get('/filter', apiController.filter, (req, res)=>{

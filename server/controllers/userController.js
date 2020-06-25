@@ -7,9 +7,8 @@ const userController = {};
 
 userController.createUser = (req, res, next) => {
     // check to see if in DB
-    console.log('req body',req.body)
+    // console.log('req body',req.body)
     const { username, password } = req.body;
-    console.log(req.body.username, req.body.password)
 
     // if one is missing?
     if (!username.length || !password.length) {
@@ -37,7 +36,7 @@ userController.createUser = (req, res, next) => {
                         })    
                     } else {
                         res.locals.user = {username: response.rows[0].username, id: response.rows[0]._id};
-                        console.log(res.locals.user)
+                        // console.log(res.locals.user)
                         return next();
                     }
                 });

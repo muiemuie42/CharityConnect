@@ -1,9 +1,10 @@
 import React from 'react';
 
-export default function NavPanel(){
+export default function NavPanel({ login, setLogin }){
     return (
-        <nav>
-            <h1>Charity Connect</h1>
-        </nav>
+        <div className='navpanel'>
+            <h2>Charity Connect</h2>
+            {/* {login.state === true ? <p> <a>Logout</a></p> : null} */}
+        </div>
     )
 }
