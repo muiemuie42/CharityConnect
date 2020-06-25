@@ -4,8 +4,8 @@ export default function State() {
     return (
         <div>
             <label htmlFor="state">State</label>
-            <select id="category">
-              <option value="">Choose a State</option>
+            <select id="state">
+              <option value="">All States</option>
               <option value="FL">FL</option>
               <option value="CT">CT</option>
               <option value="MD">MD</option>

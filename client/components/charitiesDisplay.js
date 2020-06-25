@@ -17,14 +17,15 @@ import ColumnHeader from './columnHeader';
 
 export default class CharityDisplay extends React.Component
 {
-    constructor(props){
-        super(props);
-        this.state = { charityRows: [], firstTimeLoad: true};
+    constructor(props, context){
+        super(props, context);
+        this.state = { 
+            charityRows: [], 
+            originalCharityRows: [],
+        };
+        this.fetchData = this.fetchData.bind(this);
     }
     componentDidMount(){
-        if (this.state.firstTimeLoad === false){
-            return;
-        }
         const charityResult = [];
         // fetch('https://api.data.charitynavigator.org/v2/Organizations?' +
         //         'app_id=3f3f4a3b&' +
@@ -35,8 +36,6 @@ export default class CharityDisplay extends React.Component
         fetch('https://api.data.charitynavigator.org/v2/Organizations?app_id=acad48f7&app_key=1caab9869fdb918b252c8f56de6b62ce&pageSize=1000&sort=RATING')
         .then(response => response.json())
         .then(charityArray => {
-            
-            console.log("charityArray: ",charityArray)
             charityArray.map(currObj =>{
                 let charityObj = {}
                 charityObj["charityName"] = currObj.charityName;
@@ -49,12 +48,30 @@ export default class CharityDisplay extends React.Component
                 charityObj['advisory'] = currObj.advisories.severity === null ? "none" : currObj.advisories.severity ;
                 const address = currObj.mailingAddress
                 charityObj['address'] = address.city + ", " + address.stateOrProvince + " " + address.postalCode;
+                charityObj['state'] = address.stateOrProvince;
                 charityResult.push(charityObj);
             })
-            this.setState({charityRows: charityResult })
+            this.setState({charityRows: charityResult, originalCharityRows: [...charityResult] })
         });
     }
 
+
+    fetchData(){
+        const category = document.querySelector("#category").value;
+        const state = document.querySelector("#state").value;
+        const cause = document.querySelector("#cause").value;
+        const newCharityRows= this.state.originalCharityRows.filter(currRow =>{
+            if ((category === "" || currRow.category === category) &&
+                (cause === "" || currRow.cause === cause) &&
+                (state === "" || currRow.state === state)){
+                        return currRow;
+            }
+                 
+        })
+        console.log("newCharityRows -", newCharityRows);
+        this.setState({charityRows: newCharityRows});
+
+    }
 
 
     render(){
@@ -74,7 +91,7 @@ export default class CharityDisplay extends React.Component
         return(
 
             <div className='charity-display'>
-                <FilterPanel />
+                <FilterPanel fetchData={this.fetchData}/>
                 <ColumnHeader />
                 <div className="queryResultsColumn">
                         {charityRows}

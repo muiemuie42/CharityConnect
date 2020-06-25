@@ -2,6 +2,7 @@ import React from 'react'
 import Category from './category';
 import Advisory from './advisory';
 import State from './state';
+import Cause from './cause';
 
 
 // address - city, state, zip
@@ -12,15 +13,18 @@ import State from './state';
 
 
 
-export default function FilterPanel() {
+export default function FilterPanel({fetchData}) {
     return (
         <div>
           <div className="filterContainer">
             <Category />
-            <Advisory />
             <State />
+            <Cause />
             <input type="submit" value="Submit" onClick={() => fetchData()} />
           </div>
         </div>
     )
 }
+
+//onClick={this.props.handleClick}
+
