@@ -61,21 +61,13 @@ export default class App extends React.Component
         })
 
         return(
-            // <React.Fragment>
-            //     <FilterPanel />
-            //     <ColumnHeader />
-            //     <div className="queryResultsColumn">
-            //     {charityRows}
-            //     </div>
-            // </React.Fragment>
-            <div>
-                <NavPanel />
-                <Switch>
-                    <Route exact path='/login'  component={Login}/>
-                    <Route exact path='/' component={MainPage}/>
-                </Switch>
-            </div>
-
+            <React.Fragment>
+                <FilterPanel />
+                <ColumnHeader />
+                <div className="queryResultsColumn">
+                {charityRows}
+                </div>
+            </React.Fragment>
         )
 
     }
