@@ -35,6 +35,9 @@ body {
 .filterContainer{
     background-color: lightcyan;
     padding: 10 px;
+    display: flex;
+    justify-content: space-evenly;
+    
 }
 
 .navbar {
