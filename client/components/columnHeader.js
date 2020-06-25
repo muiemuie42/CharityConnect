@@ -8,7 +8,8 @@ export default function ColumnHeader() {
             <div className="field headerColor">Category</div>
             <div className="field headerColor">Cause</div>
             <div className="field headerColor">Rating</div>
-            <div className="field headerColor">Advisories</div>
+            {/* <div className="field headerColor">Advisories</div> */}
+            <div className="field headerColor">Saved</div>
 
         </div>
     )

@@ -75,12 +75,13 @@ body {
 .charity-display {
     border: 1px solid thistle;
     width: 70vw;
-    height: 90vh;
+    height: 95vh;
+    overflow: scroll;
 }
 .saved-display {
     border: 1px solid thistle;    
     width: 30vw;
-    height: 90vh;
+    height: 95vh;
 }
 div.oauth-container {
     background-color:rgb(193, 83, 43);
